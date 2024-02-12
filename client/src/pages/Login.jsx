@@ -19,14 +19,17 @@ export default function Login() {
         password,
       };
 
-      const response = await fetch("http://localhost:5000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Set the content type header for JSON
-        },
-        body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
-        credentials: "include", // Include cookies for cross-origin requests
-      });
+      const response = await fetch(
+        import.meta.env.VITE_BASE_URL + "/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Set the content type header for JSON
+          },
+          body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+          credentials: "include", // Include cookies for cross-origin requests
+        }
+      );
 
       const data = await response.json();
 
