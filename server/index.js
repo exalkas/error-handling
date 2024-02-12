@@ -7,8 +7,10 @@ import commentRoutes from "./routes/commentRoutes.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import morgan from "morgan";
 
 const app = express();
+app.use(morgan("dev"));
 DBConnect();
 app.use(
   cors({
@@ -28,6 +30,15 @@ app.use("/uploads", express.static("uploads"));
 app.use("/posts", postRoutes); // sends control to postRoutes file
 app.use("/auth", authRoutes);
 app.use("/comments", commentRoutes);
+
+// Last route before error handling
+app.use((req, res, next) => {
+  // If no routes match, this middleware will be executed
+  res.status(404).send({
+    error: "Not Found",
+    message: "The requested resource was not found on this server.",
+  });
+});
 
 app.use(errorMiddleware);
 

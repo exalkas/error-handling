@@ -9,8 +9,11 @@ export default function Home() {
 
   useEffect(() => {
     const getData = async () => {
+      try {
+      } catch (error) {}
       const response = await axios.get(
-        import.meta.env.VITE_BASE_URL + "/posts/get/allNoCookie",
+        import.meta.env.VITE_BASE_URL + "/posts/get/all",
+        // import.meta.env.VITE_BASE_URL + "/posts/get/allNoCookie",
         {
           withCredentials: true,
         }
