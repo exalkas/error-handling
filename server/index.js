@@ -12,9 +12,10 @@ const app = express();
 DBConnect();
 app.use(
   cors({
-    origin: process.env.production
-      ? "https://error-handling-sigma.vercel.app"
-      : "http://localhost:5173",
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://error-handling-sigma.vercel.app"
+        : "http://localhost:5173",
     credentials: true,
   })
 );
