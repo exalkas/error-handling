@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import EmailConfirm from "./pages/EmailConfirm";
 import ForgotPass from "./pages/ForgotPass";
 import ChangePass from "./pages/ChangePass";
+import Users from "./pages/Users";
 
 export default function routes() {
   return (
@@ -20,6 +21,7 @@ export default function routes() {
         <Route path="/emailconfirm/:token" element={<EmailConfirm />} />
         <Route path="/forgotPass" element={<ForgotPass />} />
         <Route path="/changePass/:token" element={<ChangePass />} />
+        <Route path="/users" element={<Users />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

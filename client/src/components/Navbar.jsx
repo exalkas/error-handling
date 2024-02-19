@@ -34,6 +34,10 @@ export default function Navbar() {
         {" "}
         Register
       </Link>
+      <Link to="/users" className="text-white">
+        {" "}
+        Users
+      </Link>
       {user._id ? user.username : "Not Logged in"}
       <button onClick={handleLogout}>Logout</button>
     </nav>

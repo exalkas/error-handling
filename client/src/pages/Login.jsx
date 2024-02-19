@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/userProvider";
+import Spinner from "../components/Spinner";
 
 export default function Login() {
+  const [showSpinner, setShowSpinner] = useState(false);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -12,6 +14,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     try {
+      setShowSpinner(true);
       e.preventDefault();
 
       const body = {
@@ -55,6 +58,8 @@ export default function Login() {
 
       setError(error.message || "A network error occurred");
     }
+
+    setShowSpinner(false);
   };
 
   const handleSubmitNoCookie = async (e) => {
@@ -95,6 +100,7 @@ export default function Login() {
         />
         <input
           type="password"
+          name="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -103,9 +109,10 @@ export default function Login() {
         <p className="text-red-500 h-[2rem]">{error}</p>
         <button
           type="submit"
+          id="loginButton"
           className="w-full p-3 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
         >
-          Login
+          {showSpinner ? <Spinner /> : "Login"}
         </button>
         <div>
           <Link to="/forgotPass">Forgot pass?</Link>

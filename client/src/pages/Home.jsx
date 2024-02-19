@@ -10,17 +10,19 @@ export default function Home() {
   useEffect(() => {
     const getData = async () => {
       try {
-      } catch (error) {}
-      const response = await axios.get(
-        import.meta.env.VITE_BASE_URL + "/posts/get/all",
-        // import.meta.env.VITE_BASE_URL + "/posts/get/allNoCookie",
-        {
-          withCredentials: true,
-        }
-      );
-      console.log("🚀 ~ response:", response);
+        const response = await axios.get(
+          import.meta.env.VITE_BASE_URL + "/posts/get/all",
+          // import.meta.env.VITE_BASE_URL + "/posts/get/allNoCookie",
+          {
+            withCredentials: true,
+          }
+        );
+        console.log("🚀 ~ response:", response);
 
-      setPosts(response.data.posts);
+        setPosts(response.data.posts);
+      } catch (error) {
+        console.log("Error getting posts", error.message);
+      }
     };
 
     getData();

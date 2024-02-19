@@ -6,7 +6,9 @@ import {
   emailconfirm,
   forgotPass,
   changePass,
+  getAllUsers,
 } from "../controllers/authController.js";
+import auth from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -16,5 +18,6 @@ router.post("/loginNoCookie", handleLoginNoCookie);
 router.post("/emailconfirm/:token", emailconfirm);
 router.post("/forgotPass", forgotPass);
 router.patch("/changePass", changePass);
+router.get("/get/all", getAllUsers);
 
 export default router;

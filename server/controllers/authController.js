@@ -200,3 +200,35 @@ export const changePass = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
+
+export const getAllUsers = async (req, res) => {
+  try {
+    console.log("🚀 ~ getAllUsers:", req.query);
+
+    const { username, ageMin, ageMax, gender, skip, limit } = req.query;
+    let query = {};
+
+    if (username) {
+      query.username = { $regex: username, $options: "i" }; // Case-insensitive partial match
+    }
+    if (gender !== "any") {
+      query.gender = gender.toLowerCase();
+    }
+    query.age = { $gte: parseInt(ageMin, 10), $lte: parseInt(ageMax, 10) };
+    console.log("🚀 ~ query:", query);
+
+    const users = await User.find(query)
+      .skip(skip || 0)
+      .limit(limit || 5);
+
+    const total = await User.countDocuments(query);
+    console.log("🚀 ~ total:", total);
+
+    res.send({ success: true, users, total });
+  } catch (error) {
+    console.log("🚀 ~ error in getAllUsers:", error.message);
+
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+getAllUsers;
